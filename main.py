@@ -54,7 +54,7 @@ def Selector(Activity):
         FmsActivity = int(input('Enter search type : '))
         FindMenuSelector(FmsActivity)
     elif Activity == 3:
-        SetURL()
+        filename = SetURL()
     elif Activity == 4:
         SetFileName()
     elif Activity == 5:
@@ -71,7 +71,11 @@ def FindMenuSelector(FmsActivity):
         fo.write('\n\n')
         fo.close
     elif FmsActivity == 2:
-        pass
+        fo = open (filename,'a+', encoding = 'utf-8')
+        extension = input('Enter file extension (.***) : ')
+        fo.write(str(soup.find(extension)))
+        fo.write('\n\n')
+        fo.close
     else:
         main()
 
