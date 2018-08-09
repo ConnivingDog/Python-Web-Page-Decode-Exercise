@@ -9,19 +9,27 @@ import io
 from bs4 import BeautifulSoup
 
 def SetURL():
-    user_url = input('Enter new URL http:// ')
-    user_url = 'http://' + user_url
-    return user_url
+    try:
+        user_url = input('Enter new URL http:// ')
+        user_url = 'http://' + user_url
+        return user_url
+
+    except expression as identifier:
+        print('There''s a problem with the URL...')
 
 def SetFileName():
     user_file = input('Enter new file name : ')
     return user_file + '.html'
+
+# parsing and BS objects
 
 url = SetURL()
 filename = SetFileName()
 r = requests.get(url)
 r_html = r.text
 soup = BeautifulSoup(r_html, features='html.parser')
+
+#
 
 def main():
     os.system('cls')
@@ -36,7 +44,8 @@ def Prettify():
     fo.write(soup.prettify())
     fo.close
 
-#Determines wich method to run
+# Selector methods. Determines wich method to run
+
 def Selector(Activity):
     if Activity == 1:
         Prettify()
@@ -56,11 +65,17 @@ def Selector(Activity):
 
 def FindMenuSelector(FmsActivity):
     if FmsActivity == 1:
-        pass
+        fo = open (filename,'a+', encoding = 'utf-8')
+        ptag = input('Enter tag : ')
+        fo.write(str(soup.find(ptag)))
+        fo.write('\n\n')
+        fo.close
     elif FmsActivity == 2:
         pass
     else:
         main()
+
+#Menus
 
 def PrintMenu():
     print('[1]. Get HTML')
@@ -76,5 +91,5 @@ def PrintFindMenu():
     print('[2]. File Type (.***)')
     print('[3]. Back\n')
 
-
+os.system('cls')
 main()
