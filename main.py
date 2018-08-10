@@ -41,9 +41,8 @@ def main():
 
 def Prettify():
     filename = SetFileName()
-    fo = open (filename,'w+', encoding = 'utf-8')
-    fo.write(soup.prettify())
-    fo.closes
+    with open('Parses.' + filename, 'w+', encoding = 'utf-8') as fo:
+        fo.write(soup.prettify())
 
 # Selector methods. Determines wich method to run
 
@@ -51,7 +50,7 @@ def Selector(Activity):
     if Activity == 1:
         Prettify()
     elif Activity == 2:
-        Interface.PrintMenu()
+        Interface.PrintFindMenu()
         FmsActivity = int(input('Enter search type : '))
         FindMenuSelector(FmsActivity)
     elif Activity == 3:
@@ -67,20 +66,16 @@ def Selector(Activity):
 def FindMenuSelector(FmsActivity):
     if FmsActivity == 1:
         filename = SetFileName()
-        fo = open (filename,'a+', encoding = 'utf-8')
-        ptag = input('Enter tag : ')
-        fo.write(str(soup.find(ptag)))
-        fo.write('\n\n')
-        fo.close
-
+        with open('Finds.Tags.' + filename,'a+', encoding = 'utf-8') as fo:
+            ptag = input('Enter tag : ')
+            fo.write(str(soup.find(ptag)))
+            fo.write('\n\n')
     elif FmsActivity == 2:        
         filename = SetFileName()
-        fo = open (filename,'a+', encoding = 'utf-8')
-        extension = input('Enter file extension (.***) : ')
-        fo.write(str(soup.find(extension)))
-        fo.write('\n\n')
-        fo.close
-        
+        with open('Finds.FExt.' + filename,'a+', encoding = 'utf-8') as fo:
+            extension = input('Enter file extension (.***) : ')
+            fo.write(str(soup.find(extension)))
+            fo.write('\n\n')   
     else:
         main()
 

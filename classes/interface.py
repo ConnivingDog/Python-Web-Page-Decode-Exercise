@@ -1,3 +1,5 @@
+import os
+
 class Interface():
 
     def PrintMenu():
