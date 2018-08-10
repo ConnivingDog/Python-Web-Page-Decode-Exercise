@@ -16,7 +16,9 @@ def SetURL():
         return user_url
 
     except expression as identifier:
-        print('There''s a problem with the URL...')
+        os.system('cls')
+        print('There was a problem with the URL...')
+        return SetURL()
 
 def SetFileName():
     user_file = input('Enter new file name : ')
