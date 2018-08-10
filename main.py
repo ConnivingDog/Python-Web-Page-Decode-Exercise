@@ -7,6 +7,7 @@ import requests
 import io
 
 from bs4 import BeautifulSoup
+from classes.interface import Interface
 
 def SetURL():
     try:
@@ -24,7 +25,6 @@ def SetFileName():
 # parsing and BS objects
 
 url = SetURL()
-filename = SetFileName()
 r = requests.get(url)
 r_html = r.text
 soup = BeautifulSoup(r_html, features='html.parser')
@@ -33,16 +33,17 @@ soup = BeautifulSoup(r_html, features='html.parser')
 
 def main():
     os.system('cls')
-    PrintMenu()
+    Interface.PrintMenu()
     activity = int(input('Enter activity : '))
     Selector(activity)
     os.system('cls')
     main()
 
 def Prettify():
+    filename = SetFileName()
     fo = open (filename,'w+', encoding = 'utf-8')
     fo.write(soup.prettify())
-    fo.close
+    fo.closes
 
 # Selector methods. Determines wich method to run
 
@@ -50,7 +51,7 @@ def Selector(Activity):
     if Activity == 1:
         Prettify()
     elif Activity == 2:
-        PrintFindMenu()
+        Interface.PrintMenu()
         FmsActivity = int(input('Enter search type : '))
         FindMenuSelector(FmsActivity)
     elif Activity == 3:
@@ -65,35 +66,23 @@ def Selector(Activity):
 
 def FindMenuSelector(FmsActivity):
     if FmsActivity == 1:
+        filename = SetFileName()
         fo = open (filename,'a+', encoding = 'utf-8')
         ptag = input('Enter tag : ')
         fo.write(str(soup.find(ptag)))
         fo.write('\n\n')
         fo.close
-    elif FmsActivity == 2:
+
+    elif FmsActivity == 2:        
+        filename = SetFileName()
         fo = open (filename,'a+', encoding = 'utf-8')
         extension = input('Enter file extension (.***) : ')
         fo.write(str(soup.find(extension)))
         fo.write('\n\n')
         fo.close
+        
     else:
         main()
-
-#Menus
-
-def PrintMenu():
-    print('[1]. Get HTML')
-    print('[2]. Find')
-    print('[3]. Set URL')
-    print('[4]. Set File Name')
-    print('[5]. --')
-    print('[6]. Exit\n')
-
-def PrintFindMenu():
-    os.system('cls')
-    print('[1]. Tag')
-    print('[2]. File Type (.***)')
-    print('[3]. Back\n')
 
 os.system('cls')
 main()
